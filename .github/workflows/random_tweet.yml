@@ -1,0 +1,45 @@
+name: create a random tweet
+
+on:
+  workflow_dispatch:
+  # schedule: # disable cron for github actions as they are slow. https://cron-job.org does a much better job
+  #   - cron: '30 * * * *' # runs every hour at 30 minutes
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: checkout repo content
+        uses: actions/checkout@v2 # checkout the repository content to github runner
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11.4' # install the python version needed
+          
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          
+      - name: execute py script # run main.py
+        env:
+          CONSUMER_KEY: ${{ secrets.CONSUMER_KEY }}
+          CONSUMER_SECRET: ${{ secrets.CONSUMER_SECRET }}
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
+        run: python src/main.py
+          
+      - name: commit files
+        run: |
+          git config --local user.email "gap.2nd@gmail.com"
+          git config --local user.name "G4-P"
+          git add -A
+          git diff-index --quiet HEAD || (git commit -a -m "Hourly tweet" --allow-empty)
+          
+      - name: push changes
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main 

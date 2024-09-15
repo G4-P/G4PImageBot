@@ -6,7 +6,7 @@ import shutil
 import requests
 
 # Paths and Globals
-media_path = r"assets"
+media_path = [r"assets/Ace wo Nerae", r"assets/Mitsudomoe"]
 log = r"textfiles/logfile.txt"  # Ensure this path is correct and points to a valid log file
 used_media_path = r"duplicateImages"
 now = datetime.now()

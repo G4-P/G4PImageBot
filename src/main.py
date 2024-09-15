@@ -32,12 +32,23 @@ def auth_v2(consumer_key, consumer_secret, access_token, access_token_secret):
     )
 
 # Choose a random image from the media path
-def chooseRandomImage(path=media_path):
-    files = [file for file in os.listdir(path) if os.path.isfile(os.path.join(path, file))]
+def chooseRandomImage():
+    # Randomly select one of the media directories
+    selected_path = random.choice(media_path)
+    
+    # Ensure the path is valid and get the list of files in the selected directory
+    files = [file for file in os.listdir(selected_path) if os.path.isfile(os.path.join(selected_path, file))]
+    
     if not files:
-        raise ValueError("No files found in the specified path")
+        raise ValueError(f"No files found in the selected path: {selected_path}")
+    
+    # Randomly choose a file from the selected directory
     choice = random.randint(0, len(files) - 1)
-    return os.path.join(path, files[choice])
+    return os.path.join(selected_path, files[choice])
+
+# Example usage: Choose a random image from one of the directories
+img_path = chooseRandomImage()
+print(f"Selected image: {img_path}")
 
 # Function to upload multiple media and create a tweet
 def tweet(assets: list[str]) -> requests.Response:

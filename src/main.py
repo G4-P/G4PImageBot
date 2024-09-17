@@ -7,10 +7,7 @@ import requests
 
 # Paths and Globals
 
-media_path = [r"assets/Ace wo Nerae", r"assets/Mitsudomoe", r"assets/Ping Pong The Animation",
-r"assets/Ashita no Nadja", r"assets/Planetes", r"assets/Plastic Nee-san", r"assets/School Rumble",
-r"assets/Takarajima", r"assets/Teekyuu", r"assets/Teito Monogatari", r"assets/Tetsuwan Birdy OVA",
-r"assets/Whisper of the Heart", r"assets/Yama no Sususme", r"assets/Yuru Yuri"]
+media_path =  r"assets/videoTest"
 
 log = r"textfiles/logfile.txt"  # Ensure this path is correct and points to a valid log file
 used_media_path = r"duplicateImages"
@@ -36,13 +33,13 @@ def auth_v2(consumer_key, consumer_secret, access_token, access_token_secret):
         return_type=requests.Response,
     )
 
-# Choose a random image from the media path
-def chooseRandomImage():
+# Choose a random image or video from the media path
+def chooseRandomMedia():
     # Randomly select one of the media directories
     selected_path = random.choice(media_path)
     
     # Ensure the path is valid and get the list of files in the selected directory
-    files = [file for file in os.listdir(selected_path) if os.path.isfile(os.path.join(selected_path, file))]
+    files = [file for file in os.listdir(selected_path) if os.path.isfile(os.path.join(selected_path, file)) and file.lower().endswith(('.mp4', '.avi', '.mov', '.wmv', '.flv', '.jpg', '.jpeg', '.png', '.gif', '.bmp'))]
     
     if not files:
         raise ValueError(f"No files found in the selected path: {selected_path}")
@@ -51,9 +48,9 @@ def chooseRandomImage():
     choice = random.randint(0, len(files) - 1)
     return os.path.join(selected_path, files[choice])
 
-# Example usage: Choose a random image from one of the directories
-img_path = chooseRandomImage()
-print(f"Selected image: {img_path}")
+# Example usage: Choose a random media from one of the directories
+media_path = chooseRandomMedia()
+print(f"Selected media: {media_path}")
 
 # Function to upload multiple media and create a tweet
 def tweet(assets: list[str]) -> requests.Response:
@@ -69,28 +66,39 @@ def tweet(assets: list[str]) -> requests.Response:
     client_v2 = auth_v2(consumer_key, consumer_secret, access_token, access_token_secret)
 
     # Upload all media and get media IDs
-    media_ids = [api_v1.media_upload(asset).media_id_string for asset in assets]
+    media_ids = []
+    for asset in assets:
+        if asset.lower().endswith(('.mp4', '.avi', '.mov', '.wmv', '.flv')):
+            # Upload video file using chunked upload
+            media_id = api_v1.chunked_upload(asset, media_category='tweet_video')
+            media_ids.append(media_id.media_id_string)
+        else:
+            # Upload image file using media_upload
+            media_id = api_v1.media_upload(asset)
+            media_ids.append(media_id.media_id_string)
 
     # Create a tweet with the uploaded media IDs
     return client_v2.create_tweet(media_ids=media_ids)
 
 # Main process
 try:
-    # Select a few random images (e.g., 3 images)
-    num_images = 1
-    images = [chooseRandomImage() for _ in range(num_images)]
+    # Select a few random media (e.g., 1 media)
+    num_media = 1
+    media = [chooseRandomMedia() for _ in range(num_media)]
 
-    # Post tweet with the selected images
-    response = tweet(images)
+    # Post tweet with the selected media
+    response = tweet(media)
 
-    # Move the used images to the 'duplicateImages' folder
-    for img_path in images:
-        shutil.move(img_path, os.path.join(used_media_path, os.path.basename(img_path)))
+    # Move the used media to the 'duplicateImages' folder
+    for media_path in media:
+        filename, file_extension = os.path.splitext(media_path)
+        new_path = os.path.join(used_media_path, os.path.basename(filename) + file_extension)
+        shutil.move(media_path, new_path)
 
-    # Log the image filenames and timestamp to the text file
-    with open(log, 'a') as log_img:  # Corrected file mode
-        for img_path in images:
-            log_img.write(f"{os.path.basename(img_path)} {now.strftime('%d/%m/%Y %H:%M:%S')}\n")
+    # Log the media filenames and timestamp to the text file
+    with open(log, 'a') as log_media:  # Corrected file mode
+        for media_path in media:
+            log_media.write(f"{os.path.basename(media_path)} {now.strftime('%d/%m/%Y %H:%M:%S')}\n")
 
     print(f"Tweeted successfully with media IDs: {', '.join(response.json()['data']['media_ids'])}")
 except Exception as e:

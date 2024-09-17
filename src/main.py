@@ -7,7 +7,7 @@ import requests
 
 # Paths and Globals
 
-media_path =  r"assets/videoTest"
+media_path =  r"assets/MitsudomoeOP"
 
 log = r"textfiles/logfile.txt"  # Ensure this path is correct and points to a valid log file
 used_media_path = r"duplicateImages"
@@ -39,7 +39,7 @@ def chooseRandomMedia():
     selected_path = random.choice(media_path)
     
     # Ensure the path is valid and get the list of files in the selected directory
-    files = [file for file in os.listdir(selected_path) if os.path.isfile(os.path.join(selected_path, file)) and file.lower().endswith(('.mp4', '.avi', '.mov', '.wmv', '.flv', '.jpg', '.jpeg', '.png', '.gif', '.bmp'))]
+    files = [file for file in os.listdir(selected_path) if os.path.isfile(os.path.join(selected_path, file)) and file.lower().endswith(('.mp4', '.avi', '.mov', '.wmv', '.flv', '.jpg', '.jpeg', '.png', '.gif', '.bmp')) and len(file) > 1]
     
     if not files:
         raise ValueError(f"No files found in the selected path: {selected_path}")

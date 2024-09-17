@@ -7,10 +7,7 @@ import requests
 
 # Paths and Globals
 
-media_path = [r"assets/Ace wo Nerae", r"assets/Mitsudomoe", r"assets/Ping Pong The Animation",
-r"assets/Ashita no Nadja", r"assets/Planetes", r"assets/Plastic Nee-san", r"assets/School Rumble",
-r"assets/Takarajima", r"assets/Teekyuu", r"assets/Teito Monogatari", r"assets/Tetsuwan Birdy OVA",
-r"assets/Whisper of the Heart", r"assets/Yama no Sususme", r"assets/Yuru Yuri"]
+media_path = r"assets/.videoTest
 
 log = r"textfiles/logfile.txt"  # Ensure this path is correct and points to a valid log file
 used_media_path = r"duplicateImages"
@@ -54,6 +51,15 @@ def chooseRandomImage():
 # Example usage: Choose a random image from one of the directories
 img_path = chooseRandomImage()
 print(f"Selected image: {img_path}")
+
+def upload_media(api_v1, media_file):
+    # Check file type to determine if it’s a video
+    if media_file.lower().endswith(('.mp4', '.mov', '.avi')):
+        # Use chunked upload for videos
+        return api_v1.media_upload(filename=media_file, chunked=True).media_id_string
+    else:
+        # For images, use a normal upload
+        return api_v1.media_upload(filename=media_file).media_id_string
 
 # Function to upload multiple media and create a tweet
 def tweet(assets: list[str]) -> requests.Response:

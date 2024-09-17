@@ -7,7 +7,7 @@ import requests
 
 # Paths and Globals
 
-media_path = 
+media_path = r"assets/.videoTest"
 
 log = r"textfiles/logfile.txt"  # Ensure this path is correct and points to a valid log file
 used_media_path = r"duplicateImages"

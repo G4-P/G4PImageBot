@@ -7,7 +7,8 @@ import requests
 
 # Paths and Globals
 
-media_path = r"assets/.videoTest"
+media_path = r"assets/videoTest"
+
 log = r"textfiles/logfile.txt"  # Ensure this path is correct and points to a valid log file
 used_media_path = r"duplicateImages"
 now = datetime.now()
@@ -36,6 +37,8 @@ def auth_v2(consumer_key, consumer_secret, access_token, access_token_secret):
 
 # Choose a random media (image or video) from the media path
 def chooseRandomMedia():
+    print(f"Current media_path list: {media_path}")
+    
     # Randomly select one of the media directories
     selected_path = random.choice(media_path)
     print(f"Selected path: {selected_path}")

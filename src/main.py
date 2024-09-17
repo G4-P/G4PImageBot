@@ -13,8 +13,10 @@ used_media_path = r"duplicateImages"
 now = datetime.now()
 
 # Ensure the log directory exists
-if not os.path.exists(os.path.dirname(log)):
-    os.makedirs(os.path.dirname(log))
+log_dir = os.path.dirname(log)
+if not os.path.exists(log_dir):
+    print(f"Creating log directory: {log_dir}")
+    os.makedirs(log_dir)
 
 # Authorize Twitter with v1.1 API for media uploads
 def auth_v1(consumer_key, consumer_secret, access_token, access_token_secret):
@@ -36,8 +38,12 @@ def auth_v2(consumer_key, consumer_secret, access_token, access_token_secret):
 def chooseRandomMedia():
     # Randomly select one of the media directories
     selected_path = random.choice(media_path)
-    
+    print(f"Selected path: {selected_path}")
+
     # Ensure the path is valid and get the list of files in the selected directory
+    if not os.path.exists(selected_path):
+        raise FileNotFoundError(f"The directory does not exist: {selected_path}")
+
     files = [
         file for file in os.listdir(selected_path)
         if os.path.isfile(os.path.join(selected_path, file)) and file.lower().endswith(('.jpg', '.jpeg', '.png', '.mp4', '.mov', '.avi'))
@@ -54,10 +60,10 @@ def chooseRandomMedia():
 def upload_media(api_v1, media_file):
     # Check file type to determine if it’s a video
     if media_file.lower().endswith(('.mp4', '.mov', '.avi')):
-        # Use chunked upload for videos
+        print(f"Uploading video file: {media_file}")
         return api_v1.media_upload(filename=media_file, chunked=True).media_id_string
     else:
-        # For images, use a normal upload
+        print(f"Uploading image file: {media_file}")
         return api_v1.media_upload(filename=media_file).media_id_string
 
 # Function to upload multiple media and create a tweet
@@ -70,11 +76,14 @@ def tweet(assets: list[str]) -> requests.Response:
     if not (consumer_key and consumer_secret and access_token and access_token_secret):
         raise EnvironmentError("Missing Twitter API credentials in environment variables")
 
+    print("Authorizing Twitter API...")
     api_v1 = auth_v1(consumer_key, consumer_secret, access_token, access_token_secret)
     client_v2 = auth_v2(consumer_key, consumer_secret, access_token, access_token_secret)
 
     # Upload all media (images or videos) and get media IDs
     media_ids = [upload_media(api_v1, asset) for asset in assets]
+
+    print(f"Uploaded media with IDs: {media_ids}")
 
     # Create a tweet with the uploaded media IDs
     return client_v2.create_tweet(media_ids=media_ids)
@@ -85,12 +94,18 @@ try:
     num_media = 1
     media_files = [chooseRandomMedia() for _ in range(num_media)]
 
+    print(f"Selected media files: {media_files}")
+
     # Post tweet with the selected media files
     response = tweet(media_files)
 
     # Move the used media files to the 'duplicateImages' folder
     for media_file in media_files:
-        shutil.move(media_file, os.path.join(used_media_path, os.path.basename(media_file)))
+        used_media_full_path = os.path.join(used_media_path, os.path.basename(media_file))
+        print(f"Moving {media_file} to {used_media_full_path}")
+        if not os.path.exists(used_media_path):
+            os.makedirs(used_media_path)
+        shutil.move(media_file, used_media_full_path)
 
     # Log the media filenames and timestamp to the text file
     with open(log, 'a') as log_file:  # Corrected file mode

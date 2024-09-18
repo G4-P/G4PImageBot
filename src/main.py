@@ -33,15 +33,16 @@ def auth_v2(consumer_key, consumer_secret, access_token, access_token_secret):
 
 # Choose a random image or video from the media path
 def chooseRandomMedia():
-    # Ensure the path is valid and get the list of files in the directory
-    files = [file for file in os.listdir(media_path) if os.path.isfile(os.path.join(media_path, file)) and file.lower().endswith(('.mp4', '.avi', '.mov', '.wmv', '.flv', '.jpg', '.jpeg', '.png', '.gif', '.bmp')) and len(file) > 1]
+    files = []
+    for path in media_path:
+        files.extend([file for file in os.listdir(path) if os.path.isfile(os.path.join(path, file)) and file.lower().endswith(('.mp4', '.avi', '.mov', '.wmv', '.flv', '.jpg', '.jpeg', '.png', '.gif', '.bmp')) and len(file) > 1])
     
     if not files:
-        raise ValueError(f"No files found in the selected path: {media_path}")
+        raise ValueError(f"No files found in the selected paths: {media_path}")
     
     # Randomly choose a file from the directory
     choice = random.randint(0, len(files) - 1)
-    return os.path.join(media_path, files[choice])
+    return os.path.join(media_path[0], files[choice])
 
 # Function to upload multiple media and create a tweet
 def tweet(assets: list[str]) -> requests.Response:

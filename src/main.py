@@ -7,7 +7,7 @@ import requests
 
 # Paths and Globals
 
-media_path = [r"assets/Ace wo Nerae", r"assets/Mitsudomoe", r"assets/Ping Pong The Animation",
+media_path =  [r"assets/Ace wo Nerae", r"assets/Mitsudomoe", r"assets/Ping Pong The Animation",
 r"assets/Ashita no Nadja", r"assets/Planetes", r"assets/Plastic Nee-san", r"assets/School Rumble",
 r"assets/Takarajima", r"assets/Teekyuu", r"assets/Teito Monogatari", r"assets/Tetsuwan Birdy OVA",
 r"assets/Whisper of the Heart", r"assets/Yama no Sususme", r"assets/Yuru Yuri"]
@@ -37,6 +37,7 @@ def auth_v2(consumer_key, consumer_secret, access_token, access_token_secret):
     )
 
 # Choose a random image or video from the media path
+
 def chooseRandomMedia():
     files = []
     for path in media_path:

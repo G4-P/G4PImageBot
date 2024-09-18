@@ -6,7 +6,12 @@ import shutil
 import requests
 
 # Paths and Globals
-media_path = [r"assets/MitsudomoeOP", r"assets/MitsudomoeOP2"]
+
+media_path = [r"assets/Ace wo Nerae", r"assets/Mitsudomoe", r"assets/Ping Pong The Animation",
+r"assets/Ashita no Nadja", r"assets/Planetes", r"assets/Plastic Nee-san", r"assets/School Rumble",
+r"assets/Takarajima", r"assets/Teekyuu", r"assets/Teito Monogatari", r"assets/Tetsuwan Birdy OVA",
+r"assets/Whisper of the Heart", r"assets/Yama no Sususme", r"assets/Yuru Yuri"]
+
 log = r"textfiles/logfile.txt"  # Ensure this path is correct and points to a valid log file
 used_media_path = r"duplicateImages"
 now = datetime.now()

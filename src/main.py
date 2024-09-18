@@ -37,17 +37,26 @@ def auth_v2(consumer_key, consumer_secret, access_token, access_token_secret):
     )
 
 # Choose a random image or video from the media path
+
 def chooseRandomMedia():
-    files = []
-    for path in media_path:
-        files.extend([file for file in os.listdir(path) if os.path.isfile(os.path.join(path, file)) and file.lower().endswith(('.mp4', '.avi', '.mov', '.wmv', '.flv', '.jpg', '.jpeg', '.png', '.gif', '.bmp')) and len(file) > 1])
+    # Randomly select one of the media directories
+    selected_path = random.choice(media_path)
+    
+    # Ensure the path is valid and get the list of files in the selected directory
+    files = [file for file in os.listdir(selected_path) if os.path.isfile(os.path.join(selected_path, file)) and file.lower().endswith(('.mp4', '.avi', '.mov', '.wmv', '.flv', '.jpg', '.jpeg', '.png', '.gif', '.bmp')) and len(file) > 1]
     
     if not files:
-        raise ValueError(f"No files found in the selected paths: {media_path}")
+        raise ValueError(f"No files found in the selected path: {selected_path}")
     
-    # Randomly choose a file from the directory
+    # Randomly choose a file from the selected directory
     choice = random.randint(0, len(files) - 1)
-    return os.path.join(media_path[0], files[choice])
+    selected_file = files[choice]
+    
+    # Check if the selected file exists
+    if not os.path.exists(os.path.join(selected_path, selected_file)):
+        raise FileNotFoundError(f"File not found: {selected_file}")
+    
+    return os.path.join(selected_path, selected_file)
 
 # Function to upload multiple media and create a tweet
 def tweet(assets: list[str]) -> requests.Response:

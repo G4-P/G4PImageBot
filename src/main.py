@@ -6,9 +6,7 @@ import shutil
 import requests
 
 # Paths and Globals
-
-media_path =  [r"assets/MitsudomoeOP", r"assets/MitsudomoeOP2"]
-
+media_path = [r"assets/MitsudomoeOP", r"assets/MitsudomoeOP2"]
 log = r"textfiles/logfile.txt"  # Ensure this path is correct and points to a valid log file
 used_media_path = r"duplicateImages"
 now = datetime.now()
@@ -35,22 +33,15 @@ def auth_v2(consumer_key, consumer_secret, access_token, access_token_secret):
 
 # Choose a random image or video from the media path
 def chooseRandomMedia():
-    # Randomly select one of the media directories
-    selected_path = random.choice(media_path)
-    
-    # Ensure the path is valid and get the list of files in the selected directory
-    files = [file for file in os.listdir(selected_path) if os.path.isfile(os.path.join(selected_path, file)) and file.lower().endswith(('.mp4', '.avi', '.mov', '.wmv', '.flv', '.jpg', '.jpeg', '.png', '.gif', '.bmp')) and len(file) > 1]
+    # Ensure the path is valid and get the list of files in the directory
+    files = [file for file in os.listdir(media_path) if os.path.isfile(os.path.join(media_path, file)) and file.lower().endswith(('.mp4', '.avi', '.mov', '.wmv', '.flv', '.jpg', '.jpeg', '.png', '.gif', '.bmp')) and len(file) > 1]
     
     if not files:
-        raise ValueError(f"No files found in the selected path: {selected_path}")
+        raise ValueError(f"No files found in the selected path: {media_path}")
     
-    # Randomly choose a file from the selected directory
+    # Randomly choose a file from the directory
     choice = random.randint(0, len(files) - 1)
-    return os.path.join(selected_path, files[choice])
-
-# Example usage: Choose a random media from one of the directories
-media_path = chooseRandomMedia()
-print(f"Selected media: {media_path}")
+    return os.path.join(media_path, files[choice])
 
 # Function to upload multiple media and create a tweet
 def tweet(assets: list[str]) -> requests.Response:
@@ -91,8 +82,8 @@ try:
 
     # Move the used media to the 'duplicateImages' folder
     for media_path in media:
-        filename, file_extension = os.path.splitext(media_path)
-        new_path = os.path.join(used_media_path, os.path.basename(filename) + file_extension)
+        filename, file_extension = os.path.splitext(os.path.basename(media_path))
+        new_path = os.path.join(used_media_path, filename + file_extension)
         shutil.move(media_path, new_path)
 
     # Log the media filenames and timestamp to the text file

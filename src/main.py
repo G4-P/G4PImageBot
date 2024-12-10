@@ -7,7 +7,7 @@ import requests
 
 # Paths and Globals
 
-media_path = [r"assets/Ace wo Nerae", r"assets/Ping Pong The Animation",
+media_path = [r"assets/Ace wo Nerae", r"assets/Ace wo Nerae 2", r"assets/Ping Pong The Animation",
 r"assets/Ashita no Nadja", r"assets/Planetes", r"assets/Plastic Nee-san", r"assets/School Rumble",
 r"assets/Takarajima", r"assets/Teekyuu", r"assets/Teito Monogatari", r"assets/Tetsuwan Birdy OVA",
 r"assets/Whisper of the Heart", r"assets/Yama no Sususme", r"assets/Yuru Yuri", r"assets/Cossette no Shouzou",

@@ -15,7 +15,8 @@ r"assets/Fumiko no Kokuhaku", r"assets/Hanamaru Youchien", r"assets/Hen Zemi", r
 r"assets/Koi Kaze", r"assets/Makasete Iruka", r"assets/Moetan", r"assets/Odd Taxi",
 r"assets/TO", r"assets/Minami-ke", r"assets/Milky Holmes", r"assets/BRIGADOON Marin to Melan",r"assets/Kaiba", 
 r"assets/Yuyushiki", r"assets/Ginga Tetsudou no Yoru", r"assets/Kodomo no Jikan", r"assets/Love Live School Idol Project",
-r"assets/Memories", r"assets/Migi to Dali", r"assets/Mitsudomoe", r"assets/Popotan"]
+r"assets/Memories", r"assets/Migi to Dali", r"assets/Mitsudomoe", r"assets/Popotan", r"assets/Birth", r"assets/Gankutsuou",
+r"assets/Xenoglossia"]
 
 log = r"textfiles/logfile.txt"  # Ensure this path is correct and points to a valid log file
 used_media_path = r"duplicateImages"

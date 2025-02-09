@@ -1,4 +1,4 @@
-import tweepy
+ import tweepy
 import os
 import random
 from datetime import datetime
@@ -17,7 +17,8 @@ r"assets/TO", r"assets/Minami-ke", r"assets/Milky Holmes", r"assets/BRIGADOON Ma
 r"assets/Yuyushiki", r"assets/Ginga Tetsudou no Yoru", r"assets/Kodomo no Jikan", r"assets/Love Live School Idol Project",
 r"assets/Memories", r"assets/Migi to Dali", r"assets/Mitsudomoe", r"assets/Popotan", r"assets/Birth", r"assets/Gankutsuou",
 r"assets/Xenoglossia", r"assets/Made In Abyss", r"assets/Mitsuboshi Colors", r"assets/Do it Yourself!!", r"assets/Death Note",
-r"assets/Fuujin Monogatari", r"assets/Sono Bisque", r"assets/Tetsuwan Birdy Decode"]
+r"assets/Fuujin Monogatari", r"assets/Sono Bisque", r"assets/Tetsuwan Birdy Decode", r"assets/Eikoku Koi Monogatari",
+r"assets/Keijo"]
 
 log = r"textfiles/logfile.txt"  # Ensure this path is correct and points to a valid log file
 used_media_path = r"duplicateImages"

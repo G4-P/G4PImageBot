@@ -21,7 +21,8 @@ r"assets/Fuujin Monogatari", r"assets/Sono Bisque", r"assets/Tetsuwan Birdy Deco
 r"assets/Keijo", r"assets/Midori no Hibi", r"assets/Azuki-chan OVA", r"assets/Malice@Doll", r"assets/Haibane Renmei", r"assets/Binzume Yousei",
 r"assets/Summer Wars", r"assets/Mangirl!", r"assets/Fantastic Children", r"assets/Puella Magi Madoka Magica S1 + Movie", r"assets/Golden Kamuy S1",
 r"assets/Kyou no Go no Ni OVA", r"assets/Mazinger vs Great Dark General OVA", r"assets/Tetsujin 28", r"assets/Kikaider OVA", r"assets/Fun Fun Pharmacy",
-r"assets/Uma Musume - Road to the Top", r"assets/Uma Musume - Beginning of a New Era", r"assets/Uma Musume - Cinderella Gray "]
+r"assets/Uma Musume - Road to the Top", r"assets/Uma Musume - Beginning of a New Era", r"assets/Uma Musume - Cinderella Gray", r"assets/Vivy - Fluorite Eye's Song",
+r"assets/Panty Stocking S1", r"assets/Gundam 0079", r"assets/Galko-chan"]
 
 log = r"textfiles/logfile.txt"  # Ensure this path is correct and points to a valid log file
 used_media_path = r"duplicateImages"

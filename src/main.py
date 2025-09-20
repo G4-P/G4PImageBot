@@ -23,7 +23,7 @@ r"assets/Summer Wars", r"assets/Mangirl!", r"assets/Fantastic Children", r"asset
 r"assets/Kyou no Go no Ni OVA", r"assets/Mazinger vs Great Dark General OVA", r"assets/Tetsujin 28", r"assets/Kikaider OVA", r"assets/Fun Fun Pharmacy",
 r"assets/Uma Musume - Road to the Top", r"assets/Uma Musume - Beginning of a New Era", r"assets/Uma Musume - Cinderella Gray", r"assets/Vivy - Fluorite Eye's Song",
 r"assets/Panty Stocking S1", r"assets/Gundam 0079", r"assets/Galko-chan", r"assets/Ojamajo Doremi", r"assets/Metropolis", r"assets/The Concierge",
-r"assets/Shashinkan"]
+r"assets/Shashinkan", r"assets/Ninin ga Shinobuden"]
 
 log = r"textfiles/logfile.txt"  # Ensure this path is correct and points to a valid log file
 used_media_path = r"duplicateImages"

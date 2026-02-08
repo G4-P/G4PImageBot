@@ -24,7 +24,7 @@ r"assets/Kyou no Go no Ni OVA", r"assets/Mazinger vs Great Dark General OVA", r"
 r"assets/Uma Musume - Road to the Top", r"assets/Uma Musume - Beginning of a New Era", r"assets/Uma Musume - Cinderella Gray", r"assets/Vivy - Fluorite Eye's Song",
 r"assets/Panty Stocking S1", r"assets/Gundam 0079", r"assets/Galko-chan", r"assets/Ojamajo Doremi", r"assets/Metropolis", r"assets/The Concierge",
 r"assets/Shashinkan", r"assets/Ninin ga Shinobuden", r"assets/Alien 9", r"assets/Animal Crossing", r"assets/Cat Soup", r"assets/Junkers Come Here (Film)", 
-r"assets/Junkers Come Here (OVA)", r"assets/Popee the Performer"]
+r"assets/Junkers Come Here (OVA)", r"assets/Popee the Performer", r"assets/Catnapped"]
 
 log = r"textfiles/logfile.txt"  # Ensure this path is correct and points to a valid log file
 used_media_path = r"duplicateImages"
